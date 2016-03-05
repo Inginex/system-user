@@ -1,6 +1,4 @@
 <?php
-          
-            //INFO POSTAGEM
              if(isset($_POST['cadastrar'])){
                $titulo = $_POST['titulo'];
                $data = $_POST['data'];
@@ -133,6 +131,5 @@ echo '
                
      
    }
-   
-   
+   /* kct */
           ?>
