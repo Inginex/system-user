@@ -1,0 +1,1 @@
+$selecionarItens = $conexao->prepare("SELECT COUNT(*) as idmark, SUM(a.rate) AS rate, a.id_mark, b.name_mark, b.id, c.id_item, c.id_category FROM tb_comment a, tb_mark b, tb_category_itens c WHERE c.id_category=:id_categoria AND a.id_mark=c.id_item AND a.id_mark=b.id AND c.id_item=b.id GROUP BY a.id_mark, b.name_mark ORDER BY rate DESC");
