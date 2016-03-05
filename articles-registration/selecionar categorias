@@ -1,4 +1,4 @@
-<?php $selecionaCategoria = $conexao->prepare("SELECT a.id, a.name, b.id_item, b.id_category FROM tb_category a, tb_category_itens b WHERE b.id_item=:post_id AND a.id=b.id_category");
+  <?php $selecionaCategoria = $conexao->prepare("SELECT a.id_categoria, a.categoria, b.id_post, b.id_categoria FROM tb_categorias a, posts_categorias b WHERE b.id_post=:post_id AND a.id_categoria=b.id_categoria");
 		$selecionaCategoria->bindParam(':post_id', $post_id, PDO::PARAM_INT);
 		$selecionaCategoria->execute();
 
