@@ -1,4 +1,4 @@
-<?php 
+<?php
 ob_start();
 session_start();
 if(!isset($_SESSION['adminop']) && (!isset($_SESSION['adminpass']))){
@@ -8,7 +8,7 @@ include("includes/header.php");
 include("../conexao/conecta.php");
   $adminLogado = $_SESSION['adminop'];
   $adminSenha = $_SESSION['adminpass'];
-  $adminSenhaMD5 = md5($adminSenha); 
+  $adminSenhaMD5 = md5($adminSenha);
   // SELECIONA USUARIO
      $selecionaLogado = "SELECT * from loginadmin WHERE usuario=:adminLogado AND senha=:adminSenhaMD5";
      try{
@@ -38,7 +38,7 @@ if($nivelLogado == 0){
  header("Location: http://www.openingbr.com/entrar/?acao=permissao");
  exit;
 }
-include("includes/navbar.php"); 
+include("includes/navbar.php");
 include("includes/logout.php");
 ?>
 
@@ -48,12 +48,12 @@ include("includes/logout.php");
   <script type="text/javascript" src="http://www.openingbr.com/admin/js/init.js"></script>
   <script type="text/javascript" src="http://www.openingbr.com/admin/js/jquery.form.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
   $(function() {
     var availableTags = [
-      <?php 
-      
+      <?php
+
       $selecionafansubs = "SELECT fansub FROM tb_postagens";
 
 	$recuperafansubs = $conexao->prepare($selecionafansubs);
@@ -64,7 +64,7 @@ include("includes/logout.php");
 		while ($mostrar = $recuperafansubs->fetch(PDO::FETCH_OBJ)) {
 			$fansub = $mostrar->fansub;
 			/*
-			//Recupera as fansubs 
+			//Recupera as fansubs
                 $fanSubs = '';
                 for($i=0;$i<count($fansub);$i++){
                   $fanSubs .= ''.$fansub[$i].'';
@@ -77,7 +77,7 @@ include("includes/logout.php");
 
 		}
 	}
-	
+
       ?>
     ];
     $( "#tags" ).autocomplete({
@@ -96,7 +96,7 @@ include("includes/logout.php");
   <br><br>
 <script>$(document).ready(function() {
 $('select').material_select();
-       
+
 
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
@@ -117,52 +117,52 @@ if(isset($_GET['acao'])){
     $acao = $_GET['acao'];
     //Fomulario vazio
       if($acao=='empty'){
-        echo ' 
+        echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             var $toastContent = $("<span>Erro! Você nao preencheu todos os campos.</span>");
   Materialize.toast($toastContent, 8000);
-            }//]]> 
+            }//]]>
           </script>
         ';
       }
     //Postado com sucesso
       if($acao=='success'){
-        echo ' 
+        echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Sucesso! A postagem foi enviada.", 5000)
-            }//]]> 
+            }//]]>
           </script>
         ';
       }
     //Erro ao postar
       if($acao=='failed'){
-        echo ' 
+        echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Erro! A postagem não foi enviada.", 4000)
-            }//]]> 
+            }//]]>
           </script>
         ';
       }
       //Erro ao postar
       if($acao=='format'){
-        echo ' 
+        echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Erro! Formato da imagem nao permitido.", 4000)
-            }//]]> 
+            }//]]>
           </script>
         ';
       }
       //Erro ao postar
       if($acao=='select'){
-        echo ' 
+        echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Erro! Voce nao selecionou uma imagem.", 4000)
-            }//]]> 
+            }//]]>
           </script>
         ';
       }
@@ -182,7 +182,7 @@ try {
 ?>
 
 <?php
-          
+
             //INFO POSTAGEM
              if(isset($_POST['cadastrar'])){
                $titulo = $_POST['titulo'];
@@ -199,21 +199,18 @@ try {
                $vonline2 = $_POST['vonline2'];
                $section = $_POST['section'];
                $autor = $idUser;
-               
-               $checkBox = array_filter($_POST['genero'], 'ctype_digit');
-               
-               
+
                //INFO IMAGEM
     $file     = $_FILES['img'];
     $numFile  = count(array_filter($file['name']));
-    
+
     //PASTA
     $folder   = '../upload/postagens/';
-    
+
     //REQUISITOS
     $permite  = array('image/jpeg', 'image/jpeg');
     $maxSize  = 1024 * 1024 * 1;
-    
+
     //MENSAGENS
     $msg    = array();
     $errorMsg = array(
@@ -222,22 +219,22 @@ try {
       3 => 'o upload do arquivo foi feito parcialmente',
       4 => 'Não foi feito o upload do arquivo'
     );
-    
+
     if($numFile <= 0){
-echo ' 
+echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Erro! Voce nao selecionou uma imagem.", 4000)
-            }//]]> 
+            }//]]>
           </script>
         ';
     }
     else if($numFile >=2){
-      echo ' 
+      echo '
           <script type="text/javascript">//<![CDATA[
             window.onload=function(){
             Materialize.toast("Erro! Imagem execede o limite maximo.", 4000)
-            }//]]> 
+            }//]]>
           </script>
         ';
     }else{
@@ -247,10 +244,10 @@ echo '
         $size = $file['size'][$i];
         $error  = $file['error'][$i];
         $tmp  = $file['tmp_name'][$i];
-        
+
         $extensao = @end(explode('.', $name));
         $novoNome = rand().".$extensao";
-        
+
         if($error != 0)
           $msg[] = "<b>$name :</b> ".$errorMsg[$error];
         else if(!in_array($type, $permite))
@@ -258,21 +255,21 @@ echo '
         else if($size > $maxSize)
           $msg[] = "<b>$name :</b> Erro imagem ultrapassa o limite de 1MB";
         else{
-          
+
           if(move_uploaded_file($tmp, $folder.'/'.$novoNome)){
             //$msg[] = "<b>$name :</b> Upload Realizado com Sucesso!";
 
          if(empty($titulo) || empty($data) || empty($descricao) || empty($tamanho)  || empty($fansub)  || empty($mega)  || empty($gdrive)  || empty($ldireto)){
 
-            echo ' 
+            echo '
           <script>Javascript:location.href="http://www.openingbr.com/admin/cadastrar/?acao=empty";</script>
         ';
 
                            exit;
-                    }else{     
-            
-        $insert = "INSERT into tb_postagens (titulo, data, imagem, exibir, descricao, tamanho, fansub, legenda, mega, gdrive, ldireto, vonline, vonline2, section, autor) VALUES (:titulo, :data, :imagem, :exibir,  :descricao, :tamanho, :fansub, :legenda, :mega, :gdrive, :ldireto, :vonline, :vonline2, :section, :autor)";
-  
+                    }else{
+
+  $insert = "INSERT into tb_postagens (titulo, data, imagem, exibir, descricao, tamanho, fansub, legenda, mega, gdrive, ldireto, vonline, vonline2, section, autor) VALUES (:titulo, :data, :imagem, :exibir,  :descricao, :tamanho, :fansub, :legenda, :mega, :gdrive, :ldireto, :vonline, :vonline2, :section, :autor)";
+
   try{
     $result = $conexao->prepare($insert);
     $result->bindParam(':titulo',     $titulo,    PDO::PARAM_STR);
@@ -291,49 +288,51 @@ echo '
     $result->bindParam(':section',    $section,     PDO::PARAM_STR);
     $result->bindParam(':autor',      $autor,     PDO::PARAM_STR);
     $result->execute();
+
+    $checkBox = array_filter($_POST['genero'], 'ctype_digit');
+
+    $sqlParcial = '';
+    for($i=0; $i < count($checkBox); $i++){
+      $sqlParcial .= '("'.$proximoID.'","'. $checkBox[$i] .'"),';
+    }
+    $sqlParcial =  trim($sqlParcial, ",");
+
+    $cadastrarCategoria = $conexao->prepare('INSERT INTO posts_categorias (id_post, id_categoria) VALUES '. $sqlParcial);
+    $cadastrarCategoria->bindParam(':sqlParcial', $sqlParcial, PDO::PARAM_STR);
+    $cadastrarCategoria->execute();
+
     $contar = $result->rowCount();
     if($contar>0){
-
-            $sqlParcial = '';
-            for($i=0; $i < count($checkBox); $i++){
-            	$sqlParcial .= '("'.$proximoID.'","'. $checkBox[$i] .'"),';
-            }
-            $sqlParcial =  trim($sqlParcial, ",");
-            
-            $cadastrarCategoria = $conexao->prepare('INSERT INTO posts_categorias (id_post, id_categoria) VALUES '. $sqlParcial);
-            $cadastrarCategoria->bindParam(':sqlParcial', $sqlParcial, PDO::PARAM_STR);
-            $cadastrarCategoria->execute();
-        
-        echo ' 
+        echo '
           <script>Javascript:location.href="http://www.openingbr.com/admin/cadastrar/?acao=success";</script>
         ';
       }else{
-        echo ' 
+        echo '
           <script>Javascript:location.href="http://www.openingbr.com/admin/cadastrar/?acao=failed";</script>
         ';
-        
+
       }
-      
+
   }catch(PDOException $e){
     echo $e;
-        
+
   }
-      }    
+      }
           }else
             $msg[] = "<b>$name :</b> Desculpe! Ocorreu um erro...";
-        
+
         }
-        
+
         foreach($msg as $pop)
         echo '';
           //echo $pop.'<br>';
         }
       }
-               
-     
+
+
    }
-   
-   
+
+
           ?>
 
 
@@ -352,7 +351,7 @@ echo '
     margin: 10px 5px 0 0;
   }
 </style>
-    
+
     <div class="row">
     <div class="input-field col s9 push-s1">
         <i class="material-icons prefix">perm_media</i>
@@ -364,10 +363,10 @@ echo '
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
-      </div> 
+      </div>
     </div>
     </div>
-    </div>  
+    </div>
 
     <div class="row">
     <div class="input-field col s9 push-s1">
@@ -406,7 +405,7 @@ echo '
   }
 
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>  
+</script>
     </div>
     </div>
 
@@ -417,23 +416,23 @@ echo '
         <input name="titulo" id="icon_prefix" type="text" class="validate">
         <label for="icon_prefix">Nome do Anime:</label>
     </div>
-    </div>   
+    </div>
 
     <div class="row">
     <div class="input-field col s9 push-s1">
     <i class="material-icons prefix">today</i>
     <label>Data de Lançamento:</label>
-    <input type="text" name="data" id="date" class="validate"> 
+    <input type="text" name="data" id="date" class="validate">
     </div>
-    </div>    
+    </div>
 
     <div class="row">
     <div class="input-field col s9 push-s1">
     <i class="material-icons prefix">turned_in_not</i>
     <label>Generos:</label>
     <br>
-    <select multiple name="genero">
-    <?php 
+    <select multiple name="genero[]">
+    <?php
     $selecionaCategorias = $conexao->prepare("SELECT * FROM tb_categorias");
     $selecionaCategorias->execute();
     $categoriasEncotradas = $selecionaCategorias->rowCount();
@@ -475,7 +474,7 @@ echo '
     </p>
   </div>
   </div>
-  <br><br>  
+  <br><br>
 
   <div class="row">
     <div class="input-field col s9 push-s1">
@@ -483,7 +482,7 @@ echo '
         <input name="tamanho" id="icon_prefix" type="text" class="validate">
         <label for="icon_prefix">Tamanho:</label>
     </div>
-    </div>   
+    </div>
 
     <div class="row">
     <div class="input-field col s9 push-s1">
@@ -557,17 +556,17 @@ echo '
     </div>
     </div>
     <input type="hidden" name="autor" value="<?php echo $idUser; ?>">
-    <div class="col s4 push-s2">      
-    <button class="waves-effect waves-light btn-large" type="submit" id="cadastrar" name="cadastrar" style="line-height: 1px;"  onclick="Materialize.toast('<?php echo $msg; ?>', 4000)">Cadastrar <i class="material-icons">cloud</i></button>  
+    <div class="col s4 push-s2">
+    <button class="waves-effect waves-light btn-large" type="submit" id="cadastrar" name="cadastrar" style="line-height: 1px;"  onclick="Materialize.toast('<?php echo $msg; ?>', 4000)">Cadastrar <i class="material-icons">cloud</i></button>
     </div>
 
-    <div class="col s4 push-s3">      
-    <button class="waves-effect waves-light btn-large grey" style="line-height: 1px;" name="reset" input type="reset">Reset <i class="material-icons">close</i></button>  
+    <div class="col s4 push-s3">
+    <button class="waves-effect waves-light btn-large grey" style="line-height: 1px;" name="reset" input type="reset">Reset <i class="material-icons">close</i></button>
     </div>
 
       <br><br>
       <br><br>
-      </form> 
+      </form>
       </div>
       </div>
       </div>
