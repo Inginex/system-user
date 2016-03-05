@@ -1,0 +1,7 @@
+
+  $sql = "SELECT * FROM `tb_postagens` WHERE exibir='Sim' AND id=:id AND section='op' LIMIT 1";
+  try{
+    $resultado = $conexao->prepare($sql);
+    $resultado->bindParam('id', $idUrl, PDO::PARAM_INT);
+    $resultado->execute();
+    $contar = $resultado->rowCount();
